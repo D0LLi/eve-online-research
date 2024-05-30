@@ -22,6 +22,7 @@ Last Updated: 02/27/2019
 """
 import numpy as np
 import pandas as pd
+import math
 
 
 def drop_by_activity(df: pd.DataFrame):
@@ -164,7 +165,7 @@ def join_investment_performance_series(dfi: pd.DataFrame, dfp: pd.DataFrame):
 
     # Drop rows with inf or 0 in the k/d ratio and series ending in NaN
     result = result.drop(
-        result[(result.kd_ratio == np.inf) | (result.kd_ratio == 0.0)].index
+        result[(result.kd_ratio == np.inf) | math.isclose(result.kd_ratio, 0.0, rel_tol=1e-09, abs_tol=0.0)].index
     )
     result = result.dropna(subset=cols)
 
