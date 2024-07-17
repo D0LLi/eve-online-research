@@ -12,12 +12,12 @@ Last Updated: 04/28/2019
 
 """
 import math
-import random
 import sys
 
 import pandas as pd
 from fastdtw import fastdtw
 from scipy.spatial.distance import euclidean
+import secrets
 
 
 def player_rstats(dft: pd.DataFrame, dstats=False):
@@ -100,12 +100,12 @@ def dtw_matrix(dfts: pd.DataFrame, k=None, seed=None, ids=None):
 
     # Randomization for batch correlations
     if seed is None:
-        seed = random.random()  # create seed for reproducibility
+        seed = secrets.SystemRandom().random()  # create seed for reproducibility
     if k is None:
         k = 5  # Set sample size to 5 for a quick test
     if ids is None:
         uids = list(dfts.character_id.unique())  # unique character ids
-        ids = random.Random(seed).sample(uids, k=k)  # random character ids
+        ids = secrets.SystemRandom().Random(seed).sample(uids, k=k)  # random character ids
     print(f"\tSEED: {seed}\n\tSAMPLE SIZE: {k}")
 
     # Slot Correlation Matrices
@@ -220,7 +220,7 @@ seed = 2                                     # analogous to test number
 uids = list(dfts.character_id.unique())      # unique character ids
 n = len(uids)                                # total number of samples
 k = n//10                                    # sample size
-ids = random.Random(seed).sample(uids, k=k)  # random sample of character ids
+ids = secrets.SystemRandom().Random(seed).sample(uids, k=k)  # random sample of character ids
 
 # Calculate cost matrices
 hmat, mmat, lmat = dtw_matrix(dfts, k=k, seed=seed, ids=ids)
