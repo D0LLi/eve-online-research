@@ -12,7 +12,7 @@ decorator==5.1.1
 entrypoints==0.4
 executing==1.2.0
 html5lib==1.1
-idna==3.4
+idna==3.7
 ipykernel==6.19.2
 ipython==8.7.0
 jedi==0.18.2
